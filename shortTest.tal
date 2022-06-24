@@ -1,0 +1,30 @@
+%EMIT { #18 DEO }
+%EMIT2 { #18 DEO2 }
+
+|00 @System [ &vector $2 &pad $6 &r $2 &g $2 &b $2 ]
+|20 @Screen [ &vector $2 &width $2 &height $2 &auto $1 &pad $1 &x $2 &y $2 &addr $2 &pixel $1 &sprite $1 ]
+
+%DRAW-PIXEL { #41 .Screen/pixel DEO } ( -- ) 
+%INC-X { .Screen/x DEI2 INC2 .Screen/x DEO2 } ( - ) 
+
+|0100
+#12 #34 ADD EMIT
+#0004 #0008 ADD2 #18 EMIT2
+#04 #08 ADD #18 EMIT
+( color set )
+#2ce9 .System/r DEO2
+#01c0 .System/g DEO2
+#2ce5 .System/b DEO2
+( pixel set )
+#0008 .Screen/x DEO2
+#0008 .Screen/y DEO2
+#41 .Screen/pixel DEO
+DRAW-PIXEL INC-X
+DRAW-PIXEL INC-X
+DRAW-PIXEL INC-X
+DRAW-PIXEL INC-X
+DRAW-PIXEL INC-X
+DRAW-PIXEL
+#0a #10 SFT DEO
+BRK
+@square ff81 8181 8181 81ff

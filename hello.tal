@@ -1,0 +1,34 @@
+( hello.tal ) 
+
+( device )
+|10 @Console [ &vector $2 &read $1 &pad $5 &write $2 &error $1 ]
+
+( marcro create )
+%EMIT { .Console/write DEO }
+%NL { LIT 0a EMIT }
+%PRINT-DIGIT { }
+
+
+( main program )
+|0100 LIT 'h .Console/write DEO
+LIT 'e .Console/write DEO
+LIT 'l .Console/write DEO ( l )
+LIT 'l .Console/write DEO ( l )
+LIT 'o .Console/write DEO ( O )
+#20 .Console/write DEO ( newline )
+( call macros )
+LIT 'w EMIT
+LIT 'o EMIT
+LIT 'r EMIT
+LIT 'l EMIT
+LIT 'd EMIT
+NL
+LIT 'o
+LIT 'l
+LIT 'l
+LIT 'e
+LIT 'h
+ EMIT EMIT EMIT EMIT EMIT 
+NL
+#02 PRINT-DIGIT
+NL
