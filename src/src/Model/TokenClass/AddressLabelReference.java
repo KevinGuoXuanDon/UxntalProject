@@ -1,4 +1,4 @@
-package TokenClass;
+package Model.TokenClass;
 
 public class AddressLabelReference {
     char indication;

@@ -1,4 +1,4 @@
-package TokenClass;
+package Model.TokenClass;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

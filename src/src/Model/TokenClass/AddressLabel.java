@@ -1,14 +1,42 @@
-package TokenClass;
+package Model.TokenClass;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddressLabel {
     char indication;
-    String content;
+
+    public char getIndication() {
+        return indication;
+    }
+
+    public void setIndication(char indication) {
+        this.indication = indication;
+    }
+
+    public List<String> getContent() {
+        return content;
+    }
+
+    public void setContent(List<String> content) {
+        this.content = content;
+    }
+
+    public byte getByteCount() {
+        return byteCount;
+    }
+
+    public void setByteCount(byte byteCount) {
+        this.byteCount = byteCount;
+    }
+
+    List<String> content;
     byte byteCount;
     public AddressLabel(){
     }
-    public AddressLabel(char indication, String content){
+    public AddressLabel(char indication, List<String> content){
         this.indication = indication;
-        this.content = content;
+        this.content = new ArrayList<>(content);
         if(isAboslute(this.indication)){
             byteCount = 2;
         }
@@ -16,9 +44,9 @@ public class AddressLabel {
             byteCount = 1;
         }
     }
-    public AddressLabel(String content){
-        this.indication = content.charAt(0);
-        this.content = content;
+    public AddressLabel(List<String> content){
+        this.indication = content.get(0).charAt(0);
+        this.content = new ArrayList<>(content);
         if(isAboslute(this.indication)){
             byteCount = 2;
         }
