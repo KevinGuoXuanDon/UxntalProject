@@ -1,4 +1,4 @@
-package Uti;
+package utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,11 +23,13 @@ public class ReadAndClean {
         }
         s=clearComment(s);
         s= s.replaceAll("\\n"," ");
-        String[] arr = s.split(" ");
+        // we split by multiple spaces, for a   b c(3 spaces) we want a,b,c instead of a, ,b,c
+        String[] arr = s.split("\s+");
         List<String> list = new ArrayList<>();
         for(String str:arr){
-            if(!str.trim().equals("")){
-                list.add(str);
+            String trimed = str.trim();
+            if(!trimed.equals("")){
+                list.add(trimed);
             }
         }
         // print
