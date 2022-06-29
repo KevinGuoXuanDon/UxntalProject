@@ -10,7 +10,7 @@ public class Literal {
     public Literal(String indication){
         this.indication = indication;
     }
-    public String divide(){
+    public String divideAndConvert(){
         if(!followingContent.equals("")){
             return '#' +" "+ Integer.valueOf(followingContent,16);
         }

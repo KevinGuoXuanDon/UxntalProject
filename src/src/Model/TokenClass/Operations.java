@@ -14,7 +14,7 @@ public class Operations {
                 return false;
             }
         }
-        if(followed!='2' || followed!='k' || followed!='r'){
+        if(followed!='2' || followed!='k' || followed!='r'|| followed!='\0'){
             return false;
         }
         return true;
