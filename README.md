@@ -34,7 +34,7 @@ Get to know web Assembly  -- (Ongoing)
 
 Start conversion from UxnTAL to Web assembly    -- (Ongoing) 
 
-Specific report of covertsion:
+Specific report of covertsion: 
        Read a uxntal program and process it. --  √ (Done) 
        Split the code into blocks --  √ (Done)  
        Create token class -- √ (Done)  
