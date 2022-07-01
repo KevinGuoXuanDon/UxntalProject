@@ -36,10 +36,10 @@ Start conversion from UxnTAL to Web assembly    -- (Ongoing)
 
 Specific report of covertsion:
        Read a uxntal program and process it. --  √ (Done) 
-       Split the code into blocks --  √ (Done) 
-       Create token class -- √ (Done) 
-       Convert token string into token class  -- (Ongoing) 
-       Determine functions -- √ (Done) 
+       Split the code into blocks --  √ (Done)  
+       Create token class -- √ (Done)  
+       Convert token string into token class  -- (Ongoing)  
+       Determine functions -- √ (Done)  
        
 Deeply learn about uxntal and web assebly   -- (Ongoing) 
 
