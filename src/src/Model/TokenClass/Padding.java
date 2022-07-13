@@ -1,11 +1,15 @@
 package Model.TokenClass;
 
-public class Padding {
+public class Padding extends TokenObject{
     char indication;
     String content;
     public Padding(char indication, String content){
         this.indication = indication;
         this.content = content;
+    }
+
+    public Padding() {
+
     }
 
     public boolean isPadding(char indication){
@@ -34,5 +38,10 @@ public class Padding {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String getString() {
+        return getIndication()+getContent();
     }
 }

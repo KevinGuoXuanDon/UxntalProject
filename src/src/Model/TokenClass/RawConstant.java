@@ -1,19 +1,36 @@
 package Model.TokenClass;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class RawConstant {
+public class RawConstant extends TokenObject{
     String content;
     public RawConstant(String content){
         this.content = content;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public RawConstant() {
+
+    }
+
     // is there any special character?
     public boolean isRawContent(String content){
-        String regEx = "[ _`[email protected]#$%^&*()+=|{}‘:;‘,\\[\\].<>/?~！@#￥%……&*()——+|{}【】‘；：”“’。，、？]|\n|\r|\t";
-        Pattern p = Pattern.compile(regEx);
-        Matcher m = p.matcher(content);
-        return m.find();
+        for(char c:content.toCharArray()){
+            if(!Character.isLetterOrDigit(c)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String getString() {
+        return getContent();
     }
 }

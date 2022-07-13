@@ -1,5 +1,7 @@
 package Model;
 
+import Model.TokenClass.TokenObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ public class FunctionDetermine {
     final char start = '@';
     String end;
     List<String> content;
+    List<TokenObject> tokenContent;
     public FunctionDetermine(){
 
     }

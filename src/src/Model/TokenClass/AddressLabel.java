@@ -2,9 +2,39 @@ package Model.TokenClass;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class AddressLabel {
+public class AddressLabel extends TokenObject {
     char indication;
+    String name;
+    List<String> content;
+    List<AddressLabel> subLabel;
+    List<TokenObject> contentToken;
+    byte byteCount;
+
+    public List<TokenObject> getContentToken() {
+        return contentToken;
+    }
+
+    public void setContentToken(List<TokenObject> contentToken) {
+        this.contentToken = contentToken;
+    }
+
+    public List<AddressLabel> getSubLabel() {
+        return subLabel;
+    }
+
+    public void setSubLabel(List<AddressLabel> subLabel) {
+        this.subLabel = subLabel;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
 
     public char getIndication() {
         return indication;
@@ -30,8 +60,6 @@ public class AddressLabel {
         this.byteCount = byteCount;
     }
 
-    List<String> content;
-    byte byteCount;
     public AddressLabel(){
     }
     public AddressLabel(char indication, List<String> content){
@@ -65,5 +93,8 @@ public class AddressLabel {
         return indication =='&';
     }
 
-
+    @Override
+    public String getString() {
+        return getIndication()+getName();
+    }
 }
