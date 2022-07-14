@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class Main {
     static ReadAndClean read = new ReadAndClean();
-    static FunctionDetermine functionModel = new FunctionDetermine();
-    static List<FunctionDetermine> functionList = new ArrayList<>();
+    static Function functionModel = new Function();
+    static List<Function> functionList = new ArrayList<>();
     static List<AddressLabel> AddressLabelList = new ArrayList<>();
 
 
@@ -38,7 +38,7 @@ public class Main {
                     mark--;
                     String name = recorder.get(0).substring(1);
                     String end = str;
-                    FunctionDetermine newfunction = new FunctionDetermine(name,end,recorder);
+                    Function newfunction = new Function(name,end,recorder);
                     recorder.clear();
                     functionList.add(newfunction);
                     System.out.println("function added "+name);
@@ -60,7 +60,7 @@ public class Main {
         }
         System.out.println();
         System.out.println("Here is your functions");
-        for(FunctionDetermine f :functionList){
+        for(Function f :functionList){
             System.out.println("function's name: "+f.getName());
         }
         System.out.println("Here is your AddressLable");

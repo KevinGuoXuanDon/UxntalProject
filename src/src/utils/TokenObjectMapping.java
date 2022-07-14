@@ -134,11 +134,11 @@ public class TokenObjectMapping {
                 System.out.println(a.getIndication()+""+a.getName());
         }
 
-//        System.out.println("res is");
-//        for(TokenObject token:res){
-//            if(!token.getType().equals("unknow"))
-//                System.out.println(token.getString() + "  "+ token.getType());
-//        }
+        System.out.println("res is");
+        for(TokenObject token:res){
+            if(!token.getType().equals("unknow"))
+                System.out.println(token.getString() + "  "+ token.getType());
+        }
 
     }
 }

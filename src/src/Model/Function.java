@@ -5,16 +5,16 @@ import Model.TokenClass.TokenObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionDetermine {
+public class Function {
     String name;
     final char start = '@';
     String end;
     List<String> content;
     List<TokenObject> tokenContent;
-    public FunctionDetermine(){
+    public Function(){
 
     }
-    public FunctionDetermine(String name, String end, List<String> content){
+    public Function(String name, String end, List<String> content){
         this.name = name;
         this.end = end;
         this.content = new ArrayList<>(content);
