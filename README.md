@@ -32,10 +32,18 @@ Learn basic Uxntal syntax (e.g. stack operations, calculations, logical operatio
 
 Get to know web Assembly  -- (Ongoing) 
 
-Start conversion from UxnTAL to Web assembly    X (Blocked) 
+Start conversion from UxnTAL to Web assembly    -- (Ongoing) 
 
+Specific report of covertsion:  
+
+       Read a uxntal program and process it. --  √ (Done)  
+       Split the code into blocks --  √ (Done)  
+       Create token class -- √ (Done)  
+       Convert token string into token class  -- (Ongoing)  
+       Determine functions -- √ (Done)  
+       
 Deeply learn about uxntal and web assebly   -- (Ongoing) 
 
 Construction of paper structure     -- (Ongoing) 
        
-       *** Edit in the first week ***
+       *** Edit in the Second week ***
