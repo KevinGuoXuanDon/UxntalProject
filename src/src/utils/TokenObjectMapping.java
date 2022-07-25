@@ -1,5 +1,6 @@
 package utils;
 
+import Model.Function;
 import Model.TokenClass.*;
 
 import java.util.ArrayList;
@@ -8,9 +9,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TokenObjectMapping {
-    List<AddressLabel> lableList;
+    public List<AddressLabel> lableList;
+    public List<Function> functionList;
     public List<TokenObject> tokenObjectMapping(List<String> list) throws Exception {
-        if(list==null && list.size()==0){
+        if(list==null || list.size()==0){
             throw new Exception("You just input nothing here, plz try again");
         }
         lableList = new ArrayList<>();
@@ -39,12 +41,18 @@ public class TokenObjectMapping {
                         // add this object to res, and it's also the content of our abs Addresslable:instance
                         TokenObject content = getSingleMapping(list.get(idx));
                         if (content.getType()==null) content.setType(""+content.getClass());
-                        res.add(content);
+
+                        // If i need subLables show in list, then i need this line
+                        // res.add(content);
+
                         contentToken.add(content);
                         // if it is sub lables
                         if(content instanceof AddressLabel && ((AddressLabel) content).isRelative(((AddressLabel) content).getIndication())){
                             subLabel.add((AddressLabel) content);
                             lableList.add((AddressLabel) content);
+                        }
+                        if(cur.equals("JMP2r") || cur.equals("JMP2") || cur.equals("]")){
+                            break;
                         }
                         idx++;
                     }
@@ -71,6 +79,11 @@ public class TokenObjectMapping {
         RawConstant rawConstant = new RawConstant();
         char indication = str.charAt(0);
         String followContent = str.substring(1);
+        if(padding.isPadding(indication)){
+            padding.setIndication(indication);
+            padding.setContent(followContent);
+            return padding;
+        }
         if(addressLabel.isAddressLabel(indication)){
             addressLabel.setIndication(indication);
             addressLabel.setName(followContent);
@@ -97,48 +110,99 @@ public class TokenObjectMapping {
             operations.setFollowed(str.charAt(3));
             return operations;
         }
+        if(str.length()==3 && operations.isOperations(str,'\0') ){
+            operations.setCapital(str);
+            operations.setFollowed('\0');
+            return operations;
+        }
         if(rawConstant.isRawContent(str)){
             rawConstant.setContent(str);
             return rawConstant;
         }
         TokenObject tokenObject = new TokenObject();
+        tokenObject.setStr(str);
         tokenObject.setType("unknow");
         return tokenObject;
+    }
+
+
+    public void FunctionConvert(List<TokenObject> list){
+        functionList = new ArrayList<>();
+        for(int i=0; i<list.size(); i++){
+            TokenObject token = list.get(i);
+            if(token instanceof AddressLabel){
+                Function func = functionDetermin((AddressLabel) token);
+                if(func!=null){
+                    list.remove(i);
+                    lableList.remove(token);
+                    functionList.add(func);
+                }
+            }
+        }
+    }
+
+    public Function functionDetermin(AddressLabel addressLabel){
+        List<TokenObject>  content = addressLabel.getContentToken();
+        int lastIndex = content.size()-1;
+        String lastElement = content.get(lastIndex).getString();
+        Function res = new Function();
+        if("JMP2".equals(lastElement) || "JMP2r".equals(lastElement)){
+            res.setName(addressLabel.getName());
+            res.setTokenContent(content);
+        }
+        else{
+            res = null;
+        }
+        return res;
     }
 
     // test:
     // |00 @System [ &vector $2 &pad $6 &r $2 &g $2 &b $2 ] |20 @Screen [ &vector $2 &width $2 &height $2 &pad $2 &x $2 &y $2 &addr $2 &pixel $1 &sprite $1 ]
     public static void main(String[] args) throws Exception {
         TokenObjectMapping t = new TokenObjectMapping();
-        TokenObject instance = t.getSingleMapping("@Controller");
-        if(instance instanceof Literal){
-            System.out.println(((Literal) instance).getIndicationLit()+((Literal) instance).getFollowingContent());
-        }
-        if(instance instanceof AddressLabel){
-            System.out.println(((AddressLabel) instance).getIndication()+""+((AddressLabel) instance).getName());
+        TokenObject instance = t.getSingleMapping("|0000");
+        if(instance instanceof Padding){
+            System.out.println(instance.getString() +"  "+ ((Padding) instance).getContent());
         }
 
         List<String> test = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         test.addAll(Arrays.asList(sc.nextLine().trim().split("\s+")));
         List<TokenObject> res = t.tokenObjectMapping(test);
+        t.FunctionConvert(res);
         System.out.println("Here is your Addresslable object");
         for(AddressLabel a : t.lableList){
-            if(a.isAboslute(a.getIndication())){
-                System.out.println("here are "+a.getString()+"'s content:");
-                for(TokenObject token : a.getContentToken()){
-                    System.out.print(token.getString()+"   ");
-                }
-            }
-            else
-                System.out.println(a.getIndication()+""+a.getName());
+//            if(a.isAboslute(a.getIndication())){
+//                System.out.println("here are "+a.getString()+"'s content:");
+//                for(TokenObject token : a.getContentToken()){
+//                    System.out.print(token.getString()+"   ");
+//                }
+//            }
+//            else
+//                System.out.println(a.getIndication()+""+a.getName());
         }
-
+        System.out.println();
         System.out.println("res is");
         for(TokenObject token:res){
+            // expand the content of AddressLabel
+//            if(token instanceof AddressLabel){
+//                System.out.println(token.getString() + "  "+ token.getType());
+//                for(TokenObject sub: ((AddressLabel) token).getContentToken()){
+//                    if(!sub.getType().equals("unknow"))
+//                        System.out.println(sub.getString() + "  "+ sub.getType());
+//                }
+//            }
             if(!token.getType().equals("unknow"))
                 System.out.println(token.getString() + "  "+ token.getType());
         }
-
+        System.out.println();
+        System.out.println("Here are functions");
+        for(Function func : t.functionList){
+            System.out.println("@"+ func.getName());
+//            System.out.println("here are function content");
+//            for(TokenObject token : func.getTokenContent()){
+//                System.out.println(token.getString());
+//            }
+        }
     }
 }

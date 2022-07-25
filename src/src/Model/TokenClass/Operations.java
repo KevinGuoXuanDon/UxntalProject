@@ -31,11 +31,12 @@ public class Operations extends TokenObject{
 
     public boolean isOperations(String capital, char followed){
         for(char c : capital.toCharArray()){
-            if(Character.isLowerCase(c)){
-                return false;
+            if(Character.isUpperCase(c)){
+                continue;
             }
+            return false;
         }
-        if(followed!='2' || followed!='k' || followed!='r'|| followed!='\0'){
+        if(followed!='2' && followed!='k' && followed!='r'&& followed!='\0'){
             return false;
         }
         return true;

@@ -50,6 +50,8 @@ public class Literal extends TokenObject{
 
     @Override
     public String getString() {
+        if(getFollowingContent()==null)
+            return getIndicationLit();
         return getIndicationLit()+getFollowingContent();
     }
 }

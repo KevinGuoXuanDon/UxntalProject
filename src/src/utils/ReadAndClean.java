@@ -1,5 +1,6 @@
 package utils;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -7,13 +8,22 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.List;
 
 public class ReadAndClean {
 
-    public List<String> readUnxtalByWord(){
-        Scanner sc = new Scanner(System.in);
-        String fileName = "./UxntalCode/" + sc.next() + ".tal";
-        System.out.println("Program start to read "+fileName+ "by every word");
+    public String getPath() {
+
+        FileDialog dialog = new FileDialog(new Frame(), "Select your file", FileDialog.LOAD);
+        dialog.setVisible(true);
+        String path = dialog.getDirectory() + dialog.getFile();
+        dialog.dispose();
+        return path;
+    }
+
+    public List<String> readUnxtalByWord() {
+        String fileName = getPath();
+        System.out.println("Program start to read " + fileName + "by every word");
         String s = null;
         try {
             s = Files.readString(Paths.get(fileName));
@@ -21,29 +31,29 @@ public class ReadAndClean {
             System.out.println("ops! file not exist!");
             return null;
         }
-        s=clearComment(s);
-        s= s.replaceAll("\\n"," ");
+        s = clearComment(s);
+        s = s.replaceAll("\\n", " ");
         // we split by multiple spaces, for a   b c(3 spaces) we want a,b,c instead of a, ,b,c
         String[] arr = s.split("\s+");
         List<String> list = new ArrayList<>();
-        for(String str:arr){
+        for (String str : arr) {
             String trimed = str.trim();
-            if(!trimed.equals("")){
+            if (!trimed.equals("")) {
                 list.add(trimed);
             }
         }
         // print
-        System.out.println("Here is your reading result:  ");
-        list.stream().forEach(System.out::println);
-        return  list;
+//        System.out.println("Here is your reading result:  ");
+//        list.stream().forEach(System.out::println);
+        return list;
     }
 
     // Load a .tal and store it in to List
-    public List<String> readUnxtalByLine(){
+    public List<String> readUnxtalByLine() {
         List<String> res = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
-        File fileName = new File("./UxntalCode/" + sc.next() + ".tal");
-        System.out.println("Program start to read "+fileName + " by every line");
+        String path = getPath();
+        File fileName = new File(path);
+        System.out.println("Program start to read " + fileName + " by every line");
         try (Scanner sc2 = new Scanner(new FileReader(fileName))) {
             while (sc2.hasNextLine()) {  //按行读取字符串
                 String line = sc2.nextLine();
@@ -56,8 +66,8 @@ public class ReadAndClean {
             System.out.println("ops! file not exist!");
             return null;
         }
-        System.out.println("Here is your reading result: ");
-        res.stream().forEach(System.out::println);
+//        System.out.println("Here is your reading result: ");
+//        res.stream().forEach(System.out::println);
         return res;
     }
 
@@ -85,8 +95,8 @@ public class ReadAndClean {
                     context = context.replace(comment, "");
                     // is there any more comment?
                     left = context.indexOf('(');
-                    right = left+1;
-                    if(left!= -1) count=1;
+                    right = left + 1;
+                    if (left != -1) count = 1;
                 }
             }
         }
@@ -97,7 +107,7 @@ public class ReadAndClean {
     // Divide list into blocks base on their function
     public Map<String, List<String>> splitBlock(List<String> list) {
         // avoid empty list which may happen when failed to read a file.
-        if(list==null) {
+        if (list == null) {
             System.out.println("No file detected, stop spliting");
             return null;
         }
@@ -115,39 +125,39 @@ public class ReadAndClean {
             zeroPage.add(cur);
             i++;
         }
-        map.put("zero-page",zeroPage);
+        map.put("zero-page", zeroPage);
         // zero-page done, now we do it for main program
         List<String> main = new ArrayList<>();
         String pre;
-        String sub ="";
-        while(i < list.size()){
+        String sub = "";
+        while (i < list.size()) {
             String cur = list.get(i);
-            if(cur.contains("BRK")){
-                int index = cur.indexOf("BRK")+2;
+            if (cur.contains("BRK")) {
+                int index = cur.indexOf("BRK") + 2;
                 // if BRK is not a single line, then we need to break this String into two part
                 // Actually if we use readByWord function, this situation will not happen.
-                pre = cur.substring(0,index+1);
+                pre = cur.substring(0, index + 1);
                 main.add(pre);
-                sub = cur.substring(index+1);
+                sub = cur.substring(index + 1);
                 break;
             }
             i++;
             main.add(cur);
         }
-        map.put("main-program",main);
+        map.put("main-program", main);
         // so the part after BRK should be added to next line;
         i++;
-        if(i<list.size() && !sub.equals("")){
-            list.set(i,sub+list.get(i));
+        if (i < list.size() && !sub.equals("")) {
+            list.set(i, sub + list.get(i));
         }
         // then we deal with labels
         List<String> labels = new ArrayList<>();
-        while(i<list.size()){
+        while (i < list.size()) {
             String cur = list.get(i);
             labels.add(cur);
             i++;
         }
-        map.put("rest-lables",labels);
+        map.put("rest-lables", labels);
         System.out.println();
         System.out.println("end of splitting blocks");
         return map;
@@ -156,11 +166,11 @@ public class ReadAndClean {
     public static void main(String[] args) {
         ReadAndClean read = new ReadAndClean();
         List<String> list = read.readUnxtalByWord();
-        Map<String,List<String>> map = read.splitBlock(list);
+        Map<String, List<String>> map = read.splitBlock(list);
         System.out.println("Here is the result :");
-        if(map!=null){
-            for(String s:map.keySet()){
-                System.out.println(s+"   "+map.get(s));
+        if (map != null) {
+            for (String s : map.keySet()) {
+                System.out.println(s + "   " + map.get(s));
             }
         }
     }

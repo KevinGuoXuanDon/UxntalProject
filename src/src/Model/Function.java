@@ -10,6 +10,15 @@ public class Function {
     final char start = '@';
     String end;
     List<String> content;
+
+    public List<TokenObject> getTokenContent() {
+        return tokenContent;
+    }
+
+    public void setTokenContent(List<TokenObject> tokenContent) {
+        this.tokenContent = tokenContent;
+    }
+
     List<TokenObject> tokenContent;
     public Function(){
 
