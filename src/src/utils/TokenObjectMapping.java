@@ -74,7 +74,7 @@ public class TokenObjectMapping {
         AddressLabel addressLabel = new AddressLabel();
         AddressLabelReference addressLabelReference = new AddressLabelReference();
         Literal literal = new Literal();
-        Operations operations = new Operations();
+        Operation Operation = new Operation();
         Padding padding = new Padding();
         RawConstant rawConstant = new RawConstant();
         char indication = str.charAt(0);
@@ -105,16 +105,12 @@ public class TokenObjectMapping {
                 return new Literal(str.substring(0,3));
             }
         }
-        if(str.length()==4 && operations.isOperations(str.substring(0,3),str.charAt(3))){
-            operations.setCapital(str.substring(0,3));
-            operations.setFollowed(str.charAt(3));
-            return operations;
+        if(Operation.isOperations(str.substring(0,3),str.substring(3))){
+            Operation.setCapital(str.substring(0,3));
+            Operation.setFollowInfo(str.substring(3));
+            return Operation;
         }
-        if(str.length()==3 && operations.isOperations(str,'\0') ){
-            operations.setCapital(str);
-            operations.setFollowed('\0');
-            return operations;
-        }
+
         if(rawConstant.isRawContent(str)){
             rawConstant.setContent(str);
             return rawConstant;
@@ -136,6 +132,8 @@ public class TokenObjectMapping {
                     list.remove(i);
                     lableList.remove(token);
                     functionList.add(func);
+                    // never forget i--, because once we remove a element, index of list --;
+                    i--;
                 }
             }
         }
@@ -165,9 +163,8 @@ public class TokenObjectMapping {
             System.out.println(instance.getString() +"  "+ ((Padding) instance).getContent());
         }
 
-        List<String> test = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
-        test.addAll(Arrays.asList(sc.nextLine().trim().split("\s+")));
+        List<String> test = new ArrayList<>(Arrays.asList(sc.nextLine().trim().split("\s+")));
         List<TokenObject> res = t.tokenObjectMapping(test);
         t.FunctionConvert(res);
         System.out.println("Here is your Addresslable object");
