@@ -1,0 +1,16 @@
+record a small problem
+program now cannot deal with nested multi lable
+For instance
+@test
+,&draw-sprite
+      &draw-sprite
+        ( set  x,y coordinates )
+        #0008 .Screen/x DEO2
+        #0008 .Screen/y DEO2
+
+        ;square .Screen/addr DEO2
+        #01 .Screen/sprite DEO
+	BRK
+BRK
+
+@test lable mapping will end once it meet the first "BRK"
