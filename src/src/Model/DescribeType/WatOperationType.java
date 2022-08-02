@@ -16,7 +16,8 @@ public enum WatOperationType {
     // logical
     AND("and"),OR("or"),LeftShift("shl"), RightShift("shr_u"),
     // variable
-    Local("local",100,"(local $var i32)"),LocalGet("local.get",101,"local.get $var"),LocalSet("local.set",102,"(local.set $var (i32.const 10))"), Global("global",103,"(global $from_wasm i32 (i32.const 10))"),
+    Local("local",100,"(local $var i32)"),LocalGet("local.get",101,"local.get $var"),LocalSet("local.set",102,"(local.set $var (i32.const 10))"),
+    Global("global",103,"(global $from_wasm i32 (i32.const 10))"),
     GlobalGet("global.get",104,"global.get $var "),GLobalSet("global.set",105,"global.set $var"),
     // memory
     Grow,Size,Load,Store,

@@ -19,6 +19,7 @@ WebAssembly.instantiate(wasmBuffer,importObj).then(wasmModule => {
   main()
 });
 
+
 /* The version for 
 https://webassembly.github.io/wabt/demo/wat2wasm/
 
