@@ -38,7 +38,10 @@ public class Literal extends TokenObject{
 
     public String divideAndConvert(String followingContent){
         if(!followingContent.equals("")){
-            return Integer.valueOf(followingContent,16)+"";
+            if(followingContent.length()==4)
+                return Integer.valueOf(followingContent,16)+"";
+            else
+                return followingContent;
         }
         else
             return null;
@@ -54,4 +57,6 @@ public class Literal extends TokenObject{
             return getIndicationLit();
         return getIndicationLit()+getFollowingContent();
     }
+
+
 }

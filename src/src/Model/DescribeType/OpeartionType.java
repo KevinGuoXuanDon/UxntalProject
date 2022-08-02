@@ -33,6 +33,6 @@ public enum OpeartionType {
     }
     @Override
     public String toString(){
-        return this.ope;
+        return this.name();
     }
 }

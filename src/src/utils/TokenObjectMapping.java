@@ -105,7 +105,7 @@ public class TokenObjectMapping {
                 return new Literal(str.substring(0,3));
             }
         }
-        if(Operation.isOperations(str.substring(0,3),str.substring(3))){
+        if(str.length()>=3 && Operation.isOperations(str.substring(0,3),str.substring(3))){
             Operation.setCapital(str.substring(0,3));
             Operation.setFollowInfo(str.substring(3));
             return Operation;
