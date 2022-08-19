@@ -1,4 +1,5 @@
 import Model.TokenClass.AddressLabel;
+import Model.TokenClass.Operation;
 import Model.TokenClass.TokenObject;
 import utils.ReadAndClean;
 import Model.*;
@@ -41,7 +42,8 @@ public class Main {
         System.out.println("TokenList :");
         for(TokenObject token:tokenList){
 //            if(!token.getType().equals("unknow"))
-                System.out.print(token.getString() + "  ");
+            System.out.print(token.getString() + "  "+ token.getType());
+            System.out.println();
         }
         System.out.println();
         System.out.println("Here are functions");

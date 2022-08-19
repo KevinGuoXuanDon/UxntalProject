@@ -1,25 +1,30 @@
 package utils.WatCodeGenerate;
-import Model.TokenClass.TokenObject;
+
+import Model.Function;
+import Model.TokenClass.*;
+import Model.TransferMap;
 
 import java.io.*;
 import java.util.List;
+
 public class WatBlockWrite {
     private File file;
     private Writer writer;
-    public void fileCreate(String path){
-        try{
-            file = new File(path);
-            if(!file.exists()){
-                try{
+    private static final String manipulationVariables = "(local $_a i32) (local $_b i32) (local $_c i32)";
+    private boolean complexFlag;
+
+    public void fileCreate(String path, String name) {
+        try {
+            file = new File(path + name);
+            if (!file.exists()) {
+                try {
                     file.createNewFile();
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            writer = new FileWriter(file,true);
-        }
-        catch (Exception e){
+            writer = new FileWriter(file, true);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -29,19 +34,81 @@ public class WatBlockWrite {
         writer.write(log);
     }
 
-    public void mainFunctionCreate(List<TokenObject> content){
+    public void mainFunctionCreate(List<TokenObject> content) {
         String start = "(func (export  \"main\") " + "\r";
-        StringBuilder sb = new StringBuilder();
+        StringBuffer sb = new StringBuffer();
+        // functionCreateModel();
 
-
-
-        String end = "\r"+")";
+        String end = "\r" + ")";
     }
-    public void subFunctionCreate(List<TokenObject> content){
+
+    public void subFunctionsCreate(List<Function> content) {
+        for(Function f : content){
+            functionCreateModel(f);
+        }
+    }
+
+    public void functionCreateModel(Function func) {
+        complexFlag = false;
+        String name = func.getName();
+        List<TokenObject> contentList = func.getTokenContent();
+        int n = contentList.size();
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0; i < contentList.size(); i++) {
+            TokenObject object = contentList.get(i);
+            // Lit translate
+            if (object instanceof Literal) {
+                // special statement #18 DEO
+                if (i + 1 < n && contentList.get(i + 1).getString().equals("DEO")) {
+                    i++;
+                    sb.append(TransferMap.map.get("DEO"));
+                    continue;
+                }
+                sb.append("i32.const");
+                if (((Literal) object).getFollowingContent() != null) {
+                    sb.append(((Literal) object).getFollowingContent());
+                } else {
+                    if (i + 1 >= n) {
+                        System.out.println("Code hase problems, # should get a following constant");
+                        System.exit(0);
+                    }
+                    TokenObject next = contentList.get(i + 1);
+                    if (next instanceof RawConstant) {
+                        sb.append(next);
+                    }
+                    i++;
+                }
+            }
+            // through HashMap to get target Operations
+            else if (object instanceof Operation) {
+                String originalOpe = ((Operation) object).getCapital();
+                String targetOpe = TransferMap.map.get(originalOpe);
+                if (originalOpe.equals("DUP") || originalOpe.equals("SWP") || originalOpe.equals("ROT") || originalOpe.equals("OVR")) {
+                    complexFlag = true;
+                }
+                sb.append(targetOpe);
+            }
+            // function call or variable call.
+            else if (object instanceof AddressLabelReference) {
+                AddressLabelReference refer = (AddressLabelReference) object;
+                String referName = refer.getContent();
+                if (i + 1 >= n) {
+                    System.out.println("variable lack of operation");
+                    System.exit(0);
+                }
+                Operation next = (Operation) contentList.get(i + 1);
+                sb.append(TransferMap.map.get(next.getCapital()));
+                sb.append("$" + referName);
+            }
+        }
+        if(complexFlag) sb.insert(0,manipulationVariables);
 
     }
 
     public static void main(String[] args) {
-
+        WatBlockWrite write = new WatBlockWrite();
+        String path = System.getProperty("user.dir") + "/output/";
+        write.fileCreate(path, "test.wat");
     }
 }

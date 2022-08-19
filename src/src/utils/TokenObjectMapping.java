@@ -158,7 +158,7 @@ public class TokenObjectMapping {
     // |00 @System [ &vector $2 &pad $6 &r $2 &g $2 &b $2 ] |20 @Screen [ &vector $2 &width $2 &height $2 &pad $2 &x $2 &y $2 &addr $2 &pixel $1 &sprite $1 ]
     public static void main(String[] args) throws Exception {
         TokenObjectMapping t = new TokenObjectMapping();
-        TokenObject instance = t.getSingleMapping("|0000");
+        TokenObject instance = t.getSingleMapping("$3");
         if(instance instanceof Padding){
             System.out.println(instance.getString() +"  "+ ((Padding) instance).getContent());
         }
@@ -171,9 +171,12 @@ public class TokenObjectMapping {
         for(AddressLabel a : t.lableList){
 //            if(a.isAboslute(a.getIndication())){
 //                System.out.println("here are "+a.getString()+"'s content:");
-//                for(TokenObject token : a.getContentToken()){
-//                    System.out.print(token.getString()+"   ");
-//                }
+            /**
+             * Get subcontent of a AddressLabel, including Paddings and relative AddressLabels
+             */
+                for(TokenObject token : a.getContentToken()){
+                    System.out.print(token.getString()+"   ");
+                }
 //            }
 //            else
 //                System.out.println(a.getIndication()+""+a.getName());

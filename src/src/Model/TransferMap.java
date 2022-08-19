@@ -15,7 +15,7 @@ public class TransferMap {
         map.put(OpeartionType.SUB.name(), WatOperationType.Sub.toString());
         map.put(OpeartionType.MUL.name(), WatOperationType.Mul.toString());
         map.put(OpeartionType.DIV.name(), WatOperationType.Div.toString());
-        map.put(OpeartionType.AND.name(), WatOperationType.Add.toString());
+        map.put(OpeartionType.AND.name(), WatOperationType.AND.toString());
         map.put(OpeartionType.ORA.name(), WatOperationType.OR.toString());
         map.put(OpeartionType.EQU.name(), WatOperationType.Equal.toString());
         map.put(OpeartionType.NEQ.name(), WatOperationType.NotEqual.toString());
@@ -33,5 +33,6 @@ public class TransferMap {
         map.put(OpeartionType.NIP.name(), "i32.const 1 select");
         map.put(OpeartionType.ROT.name(), "local.set $c local.set $b local.set $a local.get $b local.get $c local.get $a");
         map.put(OpeartionType.OVR.name(), "local.set $c local.tee $b local.get $c local.get $b");
+        map.put("INC","i32.const 1 i32.add ");
     }
 }
