@@ -3,7 +3,7 @@
 *** How can I use this project :*** 
 This project **has completely completed the conversion of UnXTAL-WASM**, it is very simple to use. 
 1. `Git pull` to copy codes to your local environment.  
-2. Executes it through the Entry Class **main.class** （It's in the SRC directory）. Once you run it, **chooese a .tal file through GUI* and *All information will be printed automatically** and you can find __target file.wat__ acrroding to guide. 
+2. Executes it through the Entry Class **main.java** （It's in the SRC directory）. Once you run it, **chooese a .tal file through GUI* and *All information will be printed automatically** and you can find __target file.wat__ acrroding to guide. 
 3. You may also Unit Test each method using **allTest.java** under Package __JunitTest__ , you can edit unit test as you with to do variety of unit test.
 
 ### Required Environment:
