@@ -1,8 +1,14 @@
 # UxntalProject
 
-.................
+*** How can I use this project :*** 
+This project #has completely completed the conversion of UnXTAL-WASM#, it is very simple to use. 
+1. Git pull code 
+2. executes it through the #main.class# entry function. 
+3. You can also unit test each method using #allTest.java under Package #JunitTest 
 
-As you can see, this is an Uxntal project.  
+
+.................
+  
 In this repository I'll document an instance of writing UxNTAL and a subsequent actual project to convert it to Web Assembly, which is still under development.
 
 ## Here are some pappers/pages about unx and web assembly that I prefer
@@ -26,24 +32,6 @@ Bringing the web up to speed with WebAssembly (https://doi.org/10.1145/3062341.3
 --------------------------------------
 ## Current progress and project plan  
 
-Configure the required UXN environment   √ (Done) 
-
-Learn basic Uxntal syntax (e.g. stack operations, calculations, logical operations, bitwise operations, etc.)   √ (Done) 
-
-Get to know web Assembly  -- (Ongoing) 
-
-Start conversion from UxnTAL to Web assembly    -- (Ongoing) 
-
-Specific report of covertsion:  
-
-       Read a uxntal program and process it. --  √ (Done)  
-       Split the code into blocks --  √ (Done)  
-       Create token class -- √ (Done)  
-       Convert token string into token class  -- (Ongoing)  
-       Determine functions -- √ (Done)  
+All Feature support done, Projects can even be practical.   -- √ (Done)   
        
-Deeply learn about uxntal and web assebly   -- (Ongoing) 
-
-Construction of paper structure     -- (Ongoing) 
-       
-       *** Edit in the Second week ***
+       *** Edit in the final week ***
