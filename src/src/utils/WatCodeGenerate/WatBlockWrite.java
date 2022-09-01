@@ -12,10 +12,13 @@ public class WatBlockWrite {
     public Writer writer;
     private static final String manipulationVariables = "(local $_a i32) (local $_b i32) (local $_c i32)";
     private boolean complexFlag;
-    private static final String changeLine = "\r";
+    private static final String changeLine = "  ";
 
     public void fileCreate(String path, String name) {
         try {
+            if(!new File(path).exists()){
+                new File(path).mkdir();
+            }
             file = new File(path + name);
             if (!file.exists()) {
                 try {
