@@ -1,11 +1,14 @@
 # UxntalProject
 
 *** How can I use this project :*** 
-This project #has completely completed the conversion of UnXTAL-WASM#, it is very simple to use. 
-1. Git pull code 
-2. executes it through the #main.class# entry function. 
-3. You can also unit test each method using #allTest.java under Package #JunitTest 
+This project *has completely completed the conversion of UnXTAL-WASM*, it is very simple to use. 
+1. `Git pull` to copy codes to your local environment.  
+2. Executes it through the Entry Class *main.class*. Once you run it, *chooese a .tal file through GUI* and *All information will be printed automatically* and you can find _target file.wat_ acrroding to guide. 
+3. You may also Unit Test each method using *allTest.java* under Package _JunitTest_ , you can edit unit test as you with to do variety of unit test.
 
+### Required Environment:
+1. Jdk >= 1.8
+2. A running IDE: I prefer IDEA, of course you can use eclipse, vscode, etc., all supported
 
 .................
   
