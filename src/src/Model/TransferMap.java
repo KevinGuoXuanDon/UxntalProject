@@ -25,7 +25,7 @@ public class TransferMap {
         map.put(OpeartionType.POP.name(), WatOperationType.Drop.toString());
         map.put(OpeartionType.JMP.name(), WatOperationType.Return.toString());
         map.put(OpeartionType.SFT.name(), WatOperationType.LeftShift.toString());
-        map.put(OpeartionType.DEO.name(), WatOperationType.Drop.toString() + " call $log ");
+        map.put(OpeartionType.DEO.name(), "call $log ");
         map.put(OpeartionType.LDZ.name(), WatOperationType.GlobalGet.toString());
         map.put(OpeartionType.STZ.name(), WatOperationType.GLobalSet.toString());
         map.put(OpeartionType.DUP.name(), "local.tee $c local.get $c");

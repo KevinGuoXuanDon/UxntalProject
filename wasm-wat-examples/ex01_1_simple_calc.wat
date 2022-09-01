@@ -13,7 +13,7 @@
         i32.const 6  ;; #0006        
         local.tee $c local.get $c ;; DUP2
         i32.const 1 i32.add ;; INC2
-        i32.mul ;; MUL2
+        i32.mul ;; MUL2F
 
         call $log
     )

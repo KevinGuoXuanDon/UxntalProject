@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.List;
 
 public class ReadAndClean {
-
+    public String getName;
     public String getPath() {
 
         FileDialog dialog = new FileDialog(new Frame(), "Select your file", FileDialog.LOAD);
@@ -23,7 +23,10 @@ public class ReadAndClean {
 
     public List<String> readUnxtalByWord() {
         String fileName = getPath();
-        System.out.println("Program start to read " + fileName + "by every word");
+        String[] args = fileName.split("/");
+        String getName = args[args.length-1];
+        this.getName = getName.substring(0,getName.indexOf("."));
+        System.out.println("Program start to read " +"\n"+ fileName + " by every word");
         String s = null;
         try {
             s = Files.readString(Paths.get(fileName));

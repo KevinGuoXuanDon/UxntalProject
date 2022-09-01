@@ -13,7 +13,8 @@ public class TokenObjectMapping {
     public List<Function> functionList;
     public List<TokenObject> tokenObjectMapping(List<String> list) throws Exception {
         if(list==null || list.size()==0){
-            throw new Exception("You just input nothing here, plz try again");
+            return null;
+            // throw new Exception("You just input nothing here, plz try again");
         }
         lableList = new ArrayList<>();
         List<TokenObject> res = new ArrayList<>();
@@ -123,6 +124,9 @@ public class TokenObjectMapping {
 
 
     public void FunctionConvert(List<TokenObject> list){
+        if(list == null){
+            return;
+        }
         functionList = new ArrayList<>();
         for(int i=0; i<list.size(); i++){
             TokenObject token = list.get(i);
@@ -141,17 +145,24 @@ public class TokenObjectMapping {
 
     public Function functionDetermin(AddressLabel addressLabel){
         List<TokenObject>  content = addressLabel.getContentToken();
+        if(content==null){
+            return null;
+        }
         int lastIndex = content.size()-1;
-        String lastElement = content.get(lastIndex).getString();
-        Function res = new Function();
-        if("JMP2".equals(lastElement) || "JMP2r".equals(lastElement)){
-            res.setName(addressLabel.getName());
-            res.setTokenContent(content);
+        if(lastIndex>=0){
+            String lastElement = content.get(lastIndex).getString();
+            Function res = new Function();
+            if("JMP2".equals(lastElement) || "JMP2r".equals(lastElement)){
+                res.setName(addressLabel.getName());
+                res.setTokenContent(content);
+            }
+            else{
+                res = null;
+            }
+            return res;
         }
-        else{
-            res = null;
-        }
-        return res;
+        return null;
+
     }
 
     // test:

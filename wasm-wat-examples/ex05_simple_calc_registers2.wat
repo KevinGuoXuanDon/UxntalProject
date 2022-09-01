@@ -15,8 +15,8 @@
     (func (export  "main") 
         ;; store 6 in register x
         i32.const 6  global.set $x1
-        ;; load 6 from x
-        global.get $x 
+        ;; load 6 from x1
+        global.get $x1
         i32.const 1 i32.add 
         global.set $x2
         ;; load 6 from x, add 1, multiply both

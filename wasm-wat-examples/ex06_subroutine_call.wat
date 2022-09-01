@@ -27,4 +27,4 @@
 )
 )
 ;; DUP: local.tee $c local.get $c
-;; SWP: local.set $c local.set $b local.get $c local.get $b 
+;; SWP: local.set $c local.set $b local.get $c local.get $b

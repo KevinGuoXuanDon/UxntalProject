@@ -8,8 +8,11 @@ import java.util.List;
 public class ZeroPageConvert {
     int countForLabels = 0;
     public String convert(List<AddressLabel> list){
+        if(list ==null){
+            return "";
+        }
         StringBuilder sb = new StringBuilder();
-        String changeLine = " \r\n ";
+        String changeLine = "\n";
         for(AddressLabel object : list){
             String name = " $"+object.getName();
             /**
@@ -23,7 +26,7 @@ public class ZeroPageConvert {
 //                    }
 //                }
 //            }
-            String command = "( "+WatOperationType.Global.toString() + name+" (mut i32) (i32.const "+countForLabels+"))";
+            String command = "("+WatOperationType.Global.toString() + name+" (mut i32) (i32.const "+countForLabels+"))";
             countForLabels++;
             sb.append(command);
             sb.append(changeLine);
